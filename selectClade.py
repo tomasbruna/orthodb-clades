@@ -26,6 +26,15 @@ def selectSpeciesIds(cladeId, level2species):
     return speciesIds
 
 
+def getSpeciesIdsFromNames(speciesNames, speciesFile):
+    speciesNames = set(speciesNames.split(","))
+    exclude = set()
+    for row in csv.reader(open(speciesFile), delimiter='\t'):
+        if row[2] in speciesNames:
+            exclude.add(row[1])
+    return exclude
+
+
 def selectProteins(proteins, speciesIds, exclude):
     with open(proteins) as f:
         selected = False
@@ -43,6 +52,7 @@ def selectProteins(proteins, speciesIds, exclude):
 
 def main():
     args = parseCmd()
+
     cladeId = getCladeId(args.clade, args.levels)
     speciesIds = selectSpeciesIds(cladeId, args.level2species)
 
@@ -50,6 +60,10 @@ def main():
     if args.exclude:
         excludeId = getCladeId(args.exclude, args.levels)
         exclude = selectSpeciesIds(excludeId, args.level2species)
+
+    if args.excludeSpecies:
+        exclude.update((getSpeciesIdsFromNames(args.excludeSpecies,
+                                               args.species)))
 
     selectProteins(args.proteins, speciesIds, exclude)
 
@@ -74,7 +88,20 @@ def parseCmd():
     parser.add_argument('--exclude', type=str,
                         help='Clade name to exclude')
 
-    return parser.parse_args()
+    parser.add_argument('--excludeSpecies', type=str,
+                        help='A comma separated set of species names to\
+                        exclude. When used, --speciesIds must be supplied.')
+
+    parser.add_argument('--species', metavar='species.tab', type=str,
+                        help='Path to the species OrthoDB file')
+
+    args = parser.parse_args()
+
+    if args.excludeSpecies and not args.species:
+        sys.exit("Error: --species needs to be specified when --excludeSpecies"
+                 " is used")
+
+    return args
 
 
 if __name__ == '__main__':
