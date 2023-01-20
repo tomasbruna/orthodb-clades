@@ -18,12 +18,37 @@ rule all:
         "results/Gallus_gallus/species_excluded.fa",
         "results/Gallus_gallus/order_excluded.fa",
         "results/Solanum_lycopersicum/species_excluded.fa",
-        "results/Solanum_lycopersicum/order_excluded.fa"
-
+        "results/Solanum_lycopersicum/order_excluded.fa",
+        "results/Medicago_truncatula/species_excluded.fa",
+        "results/Medicago_truncatula/order_excluded.fa"
 
 
 
 # Individual species
+
+rule selectMedicagoSpeciesExcl:
+    input:
+        raw = "clades/Viridiplantae.fa",
+        levels = "orthodb/levels.tab",
+        levels2species = "orthodb/level2species.tab",
+        species = "orthodb/species.tab"
+    output:
+        "results/Medicago_truncatula/species_excluded.fa"
+    shell:
+        "./selectClade.py {input.raw} {input.levels} {input.levels2species} "
+        " --species {input.species} Viridiplantae "
+        " --excludeSpecies 'Medicago truncatula' > {output} "
+
+rule selectMedicagoOrderExcl:
+    input:
+        "clades/Viridiplantae.fa",
+        "orthodb/levels.tab",
+        "orthodb/level2species.tab"
+    output:
+        "results/Medicago_truncatula/order_excluded.fa"
+    shell:
+        "./selectClade.py {input} Viridiplantae --exclude Fabales > {output}"
+
 
 rule selectTomatoSpeciesExcl:
     input:
