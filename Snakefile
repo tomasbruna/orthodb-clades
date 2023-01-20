@@ -30,11 +30,37 @@ rule all:
         "results/Rhodnius_prolixus/species_excluded.fa",
         "results/Rhodnius_prolixus/order_excluded.fa",
         "results/Parasteatoda_tepidariorum/species_excluded.fa",
-        "results/Parasteatoda_tepidariorum/order_excluded.fa"
-
+        "results/Parasteatoda_tepidariorum/order_excluded.fa",
+        "results/Bombus_terrestris/species_excluded.fa",
+        "results/Bombus_terrestris/order_excluded.fa"
 
 
 # Individual species
+
+
+rule selectBombusSpeciesExcl:
+    input:
+        raw = "clades/Arthropoda.fa",
+        levels = "orthodb/levels.tab",
+        levels2species = "orthodb/level2species.tab",
+        species = "orthodb/species.tab"
+    output:
+        "results/Bombus_terrestris/species_excluded.fa"
+    shell:
+        "./selectClade.py {input.raw} {input.levels} {input.levels2species} "
+        " --species {input.species} Arthropoda "
+        " --excludeSpecies 'Bombus terrestris' > {output} "
+
+rule selectBombusOrderExcl:
+    input:
+        "clades/Arthropoda.fa",
+        "orthodb/levels.tab",
+        "orthodb/level2species.tab"
+    output:
+        "results/Bombus_terrestris/order_excluded.fa"
+    shell:
+        "./selectClade.py {input} Arthropoda --exclude Hymenoptera > {output}"
+
 
 rule selectParasteatodaSpeciesExcl:
     input:
