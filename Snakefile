@@ -10,9 +10,41 @@ rule all:
         "results/Drosophila_melanogaster/species_excluded.fa",
         "results/Drosophila_melanogaster/order_excluded.fa",
         "results/Arabidopsis_thaliana/species_excluded.fa",
-        "results/Arabidopsis_thaliana/order_excluded.fa"
+        "results/Arabidopsis_thaliana/order_excluded.fa",
+        "results/Caenorhabditis_elegans/species_excluded.fa",
+        "results/Caenorhabditis_elegans/order_excluded.fa"
+
 
 # Individual species
+
+
+rule selectCelegansSpeciesExcl:
+    input:
+        raw = "clades/Metazoa.fa",
+        levels = "orthodb/levels.tab",
+        levels2species = "orthodb/level2species.tab",
+        species = "orthodb/species.tab"
+    output:
+        "results/Caenorhabditis_elegans/species_excluded.fa"
+    shell:
+        "./selectClade.py {input.raw} {input.levels} {input.levels2species} "
+        " --species {input.species} Metazoa "
+        " --excludeSpecies 'Caenorhabditis elegans' > {output} "
+
+rule selectCelegansOrderExcl:
+    input:
+        raw = "clades/Metazoa.fa",
+        levels = "orthodb/levels.tab",
+        levels2species = "orthodb/level2species.tab",
+        species = "orthodb/species.tab"
+    output:
+        "results/Caenorhabditis_elegans/order_excluded.fa"
+    shell:
+        "./selectClade.py {input.raw} {input.levels} {input.levels2species} "
+        " --species {input.species} Metazoa "
+        " --excludeSpecies 'Caenorhabditis elegans, Strongyloides ratti, Loa loa, Brugia malayi, Caenorhabditis briggsae, Caenorhabditis remanei'"
+        " > {output} "
+
 
 rule selectArabiSpeciesExcl:
     input:
