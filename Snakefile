@@ -12,10 +12,35 @@ rule all:
         "results/Arabidopsis_thaliana/species_excluded.fa",
         "results/Arabidopsis_thaliana/order_excluded.fa",
         "results/Caenorhabditis_elegans/species_excluded.fa",
-        "results/Caenorhabditis_elegans/order_excluded.fa"
+        "results/Caenorhabditis_elegans/order_excluded.fa",
+        "results/Mus_musculus/species_excluded.fa",
+        "results/Mus_musculus/order_excluded.fa"
 
 
 # Individual species
+
+rule selectMouseSpeciesExcl:
+    input:
+        raw = "clades/Vertebrata.fa",
+        levels = "orthodb/levels.tab",
+        levels2species = "orthodb/level2species.tab",
+        species = "orthodb/species.tab"
+    output:
+        "results/Mus_musculus/species_excluded.fa"
+    shell:
+        "./selectClade.py {input.raw} {input.levels} {input.levels2species} "
+        " --species {input.species} Vertebrata "
+        " --excludeSpecies 'Mus musculus' > {output} "
+
+rule selectMouseOrderExcl:
+    input:
+        "clades/Vertebrata.fa",
+        "orthodb/levels.tab",
+        "orthodb/level2species.tab"
+    output:
+        "results/Mus_musculus/order_excluded.fa"
+    shell:
+        "./selectClade.py {input} Vertebrata --exclude Rodentia > {output}"
 
 
 rule selectCelegansSpeciesExcl:
@@ -68,6 +93,7 @@ rule selectArabiOrderExcl:
         "results/Arabidopsis_thaliana/order_excluded.fa"
     shell:
         "./selectClade.py {input} Viridiplantae --exclude Brassicales > {output}"
+
 
 rule selectDrosophilaSpeciesExcl:
     input:
