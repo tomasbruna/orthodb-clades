@@ -5,6 +5,38 @@ orthoDBlinks = [
     ("levels.tab", "https://data.orthodb.org/download/odb11v0_levels.tab.gz")]
 
 
+rule all:
+    input:
+        "results/Drosophila_melanogaster/species_excluded.fa",
+        "results/Drosophila_melanogaster/order_excluded.fa"
+
+# Individual species
+
+rule selectDrosophilaSpeciesExcl:
+    input:
+        raw = "clades/Arthropoda.fa",
+        levels = "orthodb/levels.tab",
+        levels2species = "orthodb/level2species.tab",
+        species = "orthodb/species.tab"
+    output:
+        "results/Drosophila_melanogaster/species_excluded.fa"
+    shell:
+        "./selectClade.py {input.raw} {input.levels} {input.levels2species} "
+        " --species {input.species} Arthropoda "
+        " --excludeSpecies 'Drosophila melanogaster' > {output} "
+
+rule selectDrosophilaOrderExcl:
+    input:
+        "clades/Arthropoda.fa",
+        "orthodb/levels.tab",
+        "orthodb/level2species.tab"
+    output:
+        "results/Drosophila_melanogaster/order_excluded.fa"
+    shell:
+        "./selectClade.py {input} Arthropoda --exclude Diptera > {output}"
+
+# Selection of the core sets
+
 rule selectViridiplantae:
     input:
         "clades/Eukaryota.fa",
@@ -64,6 +96,8 @@ rule selectEukaryota:
         "clades/Eukaryota.fa"
     shell:
         "./selectClade.py {input} Eukaryota > {output}"
+
+# Downloading OrthoDB
 
 rule unzip:
     input:
