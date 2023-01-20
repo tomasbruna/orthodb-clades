@@ -26,12 +26,36 @@ rule all:
         "results/Danio_rerio/species_excluded.fa",
         "results/Danio_rerio/order_excluded.fa",
         "results/Tetraodon_nigroviridis/species_excluded.fa",
-        "results/Tetraodon_nigroviridis/order_excluded.fa"
+        "results/Tetraodon_nigroviridis/order_excluded.fa",
+        "results/Rhodnius_prolixus/species_excluded.fa",
+        "results/Rhodnius_prolixus/order_excluded.fa"
 
 
 
 # Individual species
 
+rule selectRhodiusSpeciesExcl:
+    input:
+        raw = "clades/Arthropoda.fa",
+        levels = "orthodb/levels.tab",
+        levels2species = "orthodb/level2species.tab",
+        species = "orthodb/species.tab"
+    output:
+        "results/Rhodnius_prolixus/species_excluded.fa"
+    shell:
+        "./selectClade.py {input.raw} {input.levels} {input.levels2species} "
+        " --species {input.species} Arthropoda "
+        " --excludeSpecies 'Rhodnius prolixus' > {output} "
+
+rule selectRhodniusOrderExcl:
+    input:
+        "clades/Arthropoda.fa",
+        "orthodb/levels.tab",
+        "orthodb/level2species.tab"
+    output:
+        "results/Rhodnius_prolixus/order_excluded.fa"
+    shell:
+        "./selectClade.py {input} Arthropoda --exclude Hemiptera > {output}"
 
 
 rule selectTetraodonSpeciesExcl:
