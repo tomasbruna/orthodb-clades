@@ -24,11 +24,42 @@ rule all:
         "results/Populus_trichocarpa/species_excluded.fa",
         "results/Populus_trichocarpa/order_excluded.fa",
         "results/Danio_rerio/species_excluded.fa",
-        "results/Danio_rerio/order_excluded.fa"
+        "results/Danio_rerio/order_excluded.fa",
+        "results/Tetraodon_nigroviridis/species_excluded.fa",
+        "results/Tetraodon_nigroviridis/order_excluded.fa"
 
 
 
 # Individual species
+
+
+
+rule selectTetraodonSpeciesExcl:
+    input:
+        raw = "clades/Vertebrata.fa",
+        levels = "orthodb/levels.tab",
+        levels2species = "orthodb/level2species.tab",
+        species = "orthodb/species.tab"
+    output:
+        "results/Tetraodon_nigroviridis/species_excluded.fa"
+    shell:
+        "./selectClade.py {input.raw} {input.levels} {input.levels2species} "
+        " --species {input.species} Vertebrata "
+        " --excludeSpecies 'Tetraodon nigroviridis' > {output} "
+
+rule selectTetraodonOrderExcl:
+    input:
+        raw = "clades/Vertebrata.fa",
+        levels = "orthodb/levels.tab",
+        levels2species = "orthodb/level2species.tab",
+        species = "orthodb/species.tab"
+    output:
+        "results/Tetraodon_nigroviridis/order_excluded.fa"
+    shell:
+        "./selectClade.py {input.raw} {input.levels} {input.levels2species} "
+        " --species {input.species} Vertebrata "
+        " --excludeSpecies 'Tetraodon nigroviridis, Takifugu rubripes' > {output} "
+
 
 
 rule selectDanioSpeciesExcl:
