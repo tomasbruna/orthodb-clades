@@ -22,11 +22,41 @@ rule all:
         "results/Medicago_truncatula/species_excluded.fa",
         "results/Medicago_truncatula/order_excluded.fa",
         "results/Populus_trichocarpa/species_excluded.fa",
-        "results/Populus_trichocarpa/order_excluded.fa"
+        "results/Populus_trichocarpa/order_excluded.fa",
+        "results/Danio_rerio/species_excluded.fa",
+        "results/Danio_rerio/order_excluded.fa"
 
 
 
 # Individual species
+
+
+rule selectDanioSpeciesExcl:
+    input:
+        raw = "clades/Vertebrata.fa",
+        levels = "orthodb/levels.tab",
+        levels2species = "orthodb/level2species.tab",
+        species = "orthodb/species.tab"
+    output:
+        "results/Danio_rerio/species_excluded.fa"
+    shell:
+        "./selectClade.py {input.raw} {input.levels} {input.levels2species} "
+        " --species {input.species} Vertebrata "
+        " --excludeSpecies 'Danio rerio' > {output} "
+
+rule selectDanioOrderExcl:
+    input:
+        raw = "clades/Vertebrata.fa",
+        levels = "orthodb/levels.tab",
+        levels2species = "orthodb/level2species.tab",
+        species = "orthodb/species.tab"
+    output:
+        "results/Danio_rerio/order_excluded.fa"
+    shell:
+        "./selectClade.py {input.raw} {input.levels} {input.levels2species} "
+        " --species {input.species} Vertebrata "
+        " --excludeSpecies 'Pimephales promelas, Megalobrama amblycephala, Puntigrus tetrazona, Sinocyclocheilus anshuiensis, Sinocyclocheilus rhinocerous, Sinocyclocheilus grahami, Cyprinus carpio, Carassius auratus, Danio rerio' > {output} "
+
 
 rule selectPoplarSpeciesExcl:
     input:
