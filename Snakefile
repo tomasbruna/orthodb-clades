@@ -8,9 +8,34 @@ orthoDBlinks = [
 rule all:
     input:
         "results/Drosophila_melanogaster/species_excluded.fa",
-        "results/Drosophila_melanogaster/order_excluded.fa"
+        "results/Drosophila_melanogaster/order_excluded.fa",
+        "results/Arabidopsis_thaliana/species_excluded.fa",
+        "results/Arabidopsis_thaliana/order_excluded.fa"
 
 # Individual species
+
+rule selectArabiSpeciesExcl:
+    input:
+        raw = "clades/Viridiplantae.fa",
+        levels = "orthodb/levels.tab",
+        levels2species = "orthodb/level2species.tab",
+        species = "orthodb/species.tab"
+    output:
+        "results/Arabidopsis_thaliana/species_excluded.fa"
+    shell:
+        "./selectClade.py {input.raw} {input.levels} {input.levels2species} "
+        " --species {input.species} Viridiplantae "
+        " --excludeSpecies 'Arabidopsis thaliana' > {output} "
+
+rule selectArabiOrderExcl:
+    input:
+        "clades/Viridiplantae.fa",
+        "orthodb/levels.tab",
+        "orthodb/level2species.tab"
+    output:
+        "results/Arabidopsis_thaliana/order_excluded.fa"
+    shell:
+        "./selectClade.py {input} Viridiplantae --exclude Brassicales > {output}"
 
 rule selectDrosophilaSpeciesExcl:
     input:
