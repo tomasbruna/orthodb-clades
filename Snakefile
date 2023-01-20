@@ -14,10 +14,42 @@ rule all:
         "results/Caenorhabditis_elegans/species_excluded.fa",
         "results/Caenorhabditis_elegans/order_excluded.fa",
         "results/Mus_musculus/species_excluded.fa",
-        "results/Mus_musculus/order_excluded.fa"
+        "results/Mus_musculus/order_excluded.fa",
+        "results/Gallus_gallus/species_excluded.fa",
+        "results/Gallus_gallus/order_excluded.fa"
+
 
 
 # Individual species
+
+
+rule selectChickenSpeciesExcl:
+    input:
+        raw = "clades/Vertebrata.fa",
+        levels = "orthodb/levels.tab",
+        levels2species = "orthodb/level2species.tab",
+        species = "orthodb/species.tab"
+    output:
+        "results/Gallus_gallus/species_excluded.fa"
+    shell:
+        "./selectClade.py {input.raw} {input.levels} {input.levels2species} "
+        " --species {input.species} Vertebrata "
+        " --excludeSpecies 'Gallus gallus' > {output} "
+
+rule selectChickenOrderExcl:
+    input:
+        raw = "clades/Vertebrata.fa",
+        levels = "orthodb/levels.tab",
+        levels2species = "orthodb/level2species.tab",
+        species = "orthodb/species.tab"
+    output:
+        "results/Gallus_gallus/order_excluded.fa"
+    shell:
+        "./selectClade.py {input.raw} {input.levels} {input.levels2species} "
+        " --species {input.species} Vertebrata "
+        " --excludeSpecies 'Centrocercus urophasianus, Coturnix japonica, Gallus gallus, Lagopus leucura, Meleagris gallopavo, Numida meleagris, Phasianus colchicus'"
+        " > {output} "
+
 
 rule selectMouseSpeciesExcl:
     input:
