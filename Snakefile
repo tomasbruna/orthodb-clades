@@ -20,11 +20,37 @@ rule all:
         "results/Solanum_lycopersicum/species_excluded.fa",
         "results/Solanum_lycopersicum/order_excluded.fa",
         "results/Medicago_truncatula/species_excluded.fa",
-        "results/Medicago_truncatula/order_excluded.fa"
+        "results/Medicago_truncatula/order_excluded.fa",
+        "results/Populus_trichocarpa/species_excluded.fa",
+        "results/Populus_trichocarpa/order_excluded.fa"
 
 
 
 # Individual species
+
+rule selectPoplarSpeciesExcl:
+    input:
+        raw = "clades/Viridiplantae.fa",
+        levels = "orthodb/levels.tab",
+        levels2species = "orthodb/level2species.tab",
+        species = "orthodb/species.tab"
+    output:
+        "results/Populus_trichocarpa/species_excluded.fa"
+    shell:
+        "./selectClade.py {input.raw} {input.levels} {input.levels2species} "
+        " --species {input.species} Viridiplantae "
+        " --excludeSpecies 'Populus trichocarpa' > {output} "
+
+rule selectPoplarOrderExcl:
+    input:
+        "clades/Viridiplantae.fa",
+        "orthodb/levels.tab",
+        "orthodb/level2species.tab"
+    output:
+        "results/Populus_trichocarpa/order_excluded.fa"
+    shell:
+        "./selectClade.py {input} Viridiplantae --exclude  Malpighiales > {output}"
+
 
 rule selectMedicagoSpeciesExcl:
     input:
