@@ -94,7 +94,7 @@ def parseCmd():
 
     parser.add_argument('--excludeSpecies', type=str,
                         help='A comma separated set of species names to\
-                        exclude. When used, --speciesIds must be supplied.')
+                        exclude. When used, --species must be supplied.')
 
     parser.add_argument('--species', metavar='species.tab', type=str,
                         help='Path to the species OrthoDB file')
