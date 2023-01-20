@@ -1,6 +1,6 @@
 # orthodb-clades
 
-Workflow for generating OrthoDB v11 protein sets.
+Workflow for generating [OrthoDB v11](https://www.orthodb.org/?) protein sets.
 
 All files are automatically downloaded from OrthoDB and parsed using a [Snakemake](https://snakemake.readthedocs.io/en/stable/index.html) workflow with the following command:
 
