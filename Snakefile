@@ -28,11 +28,37 @@ rule all:
         "results/Tetraodon_nigroviridis/species_excluded.fa",
         "results/Tetraodon_nigroviridis/order_excluded.fa",
         "results/Rhodnius_prolixus/species_excluded.fa",
-        "results/Rhodnius_prolixus/order_excluded.fa"
+        "results/Rhodnius_prolixus/order_excluded.fa",
+        "results/Parasteatoda_tepidariorum/species_excluded.fa",
+        "results/Parasteatoda_tepidariorum/order_excluded.fa"
 
 
 
 # Individual species
+
+rule selectParasteatodaSpeciesExcl:
+    input:
+        raw = "clades/Arthropoda.fa",
+        levels = "orthodb/levels.tab",
+        levels2species = "orthodb/level2species.tab",
+        species = "orthodb/species.tab"
+    output:
+        "results/Parasteatoda_tepidariorum/species_excluded.fa"
+    shell:
+        "./selectClade.py {input.raw} {input.levels} {input.levels2species} "
+        " --species {input.species} Arthropoda "
+        " --excludeSpecies 'Parasteatoda tepidariorum' > {output} "
+
+rule selectParasteatodaOrderExcl:
+    input:
+        "clades/Arthropoda.fa",
+        "orthodb/levels.tab",
+        "orthodb/level2species.tab"
+    output:
+        "results/Parasteatoda_tepidariorum/order_excluded.fa"
+    shell:
+        "./selectClade.py {input} Arthropoda --exclude Araneae > {output}"
+
 
 rule selectRhodiusSpeciesExcl:
     input:
