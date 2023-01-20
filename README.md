@@ -4,7 +4,7 @@ Workflow for generating OrthoDB v11 protein sets.
 
 All files are automatically downloaded from OrthoDB and parsed using a [Snakemake](https://snakemake.readthedocs.io/en/stable/index.html) workflow with the following command:
 
-    snakemake --cores 1
+    snakemake --cores N
     
 The resulting protein sets are saved into two different folders:
 
