@@ -7,32 +7,32 @@ orthoDBlinks = [
 
 rule all:
     input:
-        "results/Drosophila_melanogaster/species_excluded.fa",
-        "results/Drosophila_melanogaster/order_excluded.fa",
-        "results/Arabidopsis_thaliana/species_excluded.fa",
-        "results/Arabidopsis_thaliana/order_excluded.fa",
-        "results/Caenorhabditis_elegans/species_excluded.fa",
-        "results/Caenorhabditis_elegans/order_excluded.fa",
-        "results/Mus_musculus/species_excluded.fa",
-        "results/Mus_musculus/order_excluded.fa",
-        "results/Gallus_gallus/species_excluded.fa",
-        "results/Gallus_gallus/order_excluded.fa",
-        "results/Solanum_lycopersicum/species_excluded.fa",
-        "results/Solanum_lycopersicum/order_excluded.fa",
-        "results/Medicago_truncatula/species_excluded.fa",
-        "results/Medicago_truncatula/order_excluded.fa",
-        "results/Populus_trichocarpa/species_excluded.fa",
-        "results/Populus_trichocarpa/order_excluded.fa",
-        "results/Danio_rerio/species_excluded.fa",
-        "results/Danio_rerio/order_excluded.fa",
-        "results/Tetraodon_nigroviridis/species_excluded.fa",
-        "results/Tetraodon_nigroviridis/order_excluded.fa",
-        "results/Rhodnius_prolixus/species_excluded.fa",
-        "results/Rhodnius_prolixus/order_excluded.fa",
-        "results/Parasteatoda_tepidariorum/species_excluded.fa",
-        "results/Parasteatoda_tepidariorum/order_excluded.fa",
-        "results/Bombus_terrestris/species_excluded.fa",
-        "results/Bombus_terrestris/order_excluded.fa"
+        "species/Drosophila_melanogaster/species_excluded.fa",
+        "species/Drosophila_melanogaster/order_excluded.fa",
+        "species/Arabidopsis_thaliana/species_excluded.fa",
+        "species/Arabidopsis_thaliana/order_excluded.fa",
+        "species/Caenorhabditis_elegans/species_excluded.fa",
+        "species/Caenorhabditis_elegans/order_excluded.fa",
+        "species/Mus_musculus/species_excluded.fa",
+        "species/Mus_musculus/order_excluded.fa",
+        "species/Gallus_gallus/species_excluded.fa",
+        "species/Gallus_gallus/order_excluded.fa",
+        "species/Solanum_lycopersicum/species_excluded.fa",
+        "species/Solanum_lycopersicum/order_excluded.fa",
+        "species/Medicago_truncatula/species_excluded.fa",
+        "species/Medicago_truncatula/order_excluded.fa",
+        "species/Populus_trichocarpa/species_excluded.fa",
+        "species/Populus_trichocarpa/order_excluded.fa",
+        "species/Danio_rerio/species_excluded.fa",
+        "species/Danio_rerio/order_excluded.fa",
+        "species/Tetraodon_nigroviridis/species_excluded.fa",
+        "species/Tetraodon_nigroviridis/order_excluded.fa",
+        "species/Rhodnius_prolixus/species_excluded.fa",
+        "species/Rhodnius_prolixus/order_excluded.fa",
+        "species/Parasteatoda_tepidariorum/species_excluded.fa",
+        "species/Parasteatoda_tepidariorum/order_excluded.fa",
+        "species/Bombus_terrestris/species_excluded.fa",
+        "species/Bombus_terrestris/order_excluded.fa"
 
 
 # Individual species
@@ -45,7 +45,7 @@ rule selectBombusSpeciesExcl:
         levels2species = "orthodb/level2species.tab",
         species = "orthodb/species.tab"
     output:
-        "results/Bombus_terrestris/species_excluded.fa"
+        "species/Bombus_terrestris/species_excluded.fa"
     shell:
         "./selectClade.py {input.raw} {input.levels} {input.levels2species} "
         " --species {input.species} Arthropoda "
@@ -57,7 +57,7 @@ rule selectBombusOrderExcl:
         "orthodb/levels.tab",
         "orthodb/level2species.tab"
     output:
-        "results/Bombus_terrestris/order_excluded.fa"
+        "species/Bombus_terrestris/order_excluded.fa"
     shell:
         "./selectClade.py {input} Arthropoda --exclude Hymenoptera > {output}"
 
@@ -69,7 +69,7 @@ rule selectParasteatodaSpeciesExcl:
         levels2species = "orthodb/level2species.tab",
         species = "orthodb/species.tab"
     output:
-        "results/Parasteatoda_tepidariorum/species_excluded.fa"
+        "species/Parasteatoda_tepidariorum/species_excluded.fa"
     shell:
         "./selectClade.py {input.raw} {input.levels} {input.levels2species} "
         " --species {input.species} Arthropoda "
@@ -81,7 +81,7 @@ rule selectParasteatodaOrderExcl:
         "orthodb/levels.tab",
         "orthodb/level2species.tab"
     output:
-        "results/Parasteatoda_tepidariorum/order_excluded.fa"
+        "species/Parasteatoda_tepidariorum/order_excluded.fa"
     shell:
         "./selectClade.py {input} Arthropoda --exclude Araneae > {output}"
 
@@ -93,7 +93,7 @@ rule selectRhodiusSpeciesExcl:
         levels2species = "orthodb/level2species.tab",
         species = "orthodb/species.tab"
     output:
-        "results/Rhodnius_prolixus/species_excluded.fa"
+        "species/Rhodnius_prolixus/species_excluded.fa"
     shell:
         "./selectClade.py {input.raw} {input.levels} {input.levels2species} "
         " --species {input.species} Arthropoda "
@@ -105,7 +105,7 @@ rule selectRhodniusOrderExcl:
         "orthodb/levels.tab",
         "orthodb/level2species.tab"
     output:
-        "results/Rhodnius_prolixus/order_excluded.fa"
+        "species/Rhodnius_prolixus/order_excluded.fa"
     shell:
         "./selectClade.py {input} Arthropoda --exclude Hemiptera > {output}"
 
@@ -117,7 +117,7 @@ rule selectTetraodonSpeciesExcl:
         levels2species = "orthodb/level2species.tab",
         species = "orthodb/species.tab"
     output:
-        "results/Tetraodon_nigroviridis/species_excluded.fa"
+        "species/Tetraodon_nigroviridis/species_excluded.fa"
     shell:
         "./selectClade.py {input.raw} {input.levels} {input.levels2species} "
         " --species {input.species} Vertebrata "
@@ -130,7 +130,7 @@ rule selectTetraodonOrderExcl:
         levels2species = "orthodb/level2species.tab",
         species = "orthodb/species.tab"
     output:
-        "results/Tetraodon_nigroviridis/order_excluded.fa"
+        "species/Tetraodon_nigroviridis/order_excluded.fa"
     shell:
         "./selectClade.py {input.raw} {input.levels} {input.levels2species} "
         " --species {input.species} Vertebrata "
@@ -145,7 +145,7 @@ rule selectDanioSpeciesExcl:
         levels2species = "orthodb/level2species.tab",
         species = "orthodb/species.tab"
     output:
-        "results/Danio_rerio/species_excluded.fa"
+        "species/Danio_rerio/species_excluded.fa"
     shell:
         "./selectClade.py {input.raw} {input.levels} {input.levels2species} "
         " --species {input.species} Vertebrata "
@@ -158,7 +158,7 @@ rule selectDanioOrderExcl:
         levels2species = "orthodb/level2species.tab",
         species = "orthodb/species.tab"
     output:
-        "results/Danio_rerio/order_excluded.fa"
+        "species/Danio_rerio/order_excluded.fa"
     shell:
         "./selectClade.py {input.raw} {input.levels} {input.levels2species} "
         " --species {input.species} Vertebrata "
@@ -172,7 +172,7 @@ rule selectPoplarSpeciesExcl:
         levels2species = "orthodb/level2species.tab",
         species = "orthodb/species.tab"
     output:
-        "results/Populus_trichocarpa/species_excluded.fa"
+        "species/Populus_trichocarpa/species_excluded.fa"
     shell:
         "./selectClade.py {input.raw} {input.levels} {input.levels2species} "
         " --species {input.species} Viridiplantae "
@@ -184,7 +184,7 @@ rule selectPoplarOrderExcl:
         "orthodb/levels.tab",
         "orthodb/level2species.tab"
     output:
-        "results/Populus_trichocarpa/order_excluded.fa"
+        "species/Populus_trichocarpa/order_excluded.fa"
     shell:
         "./selectClade.py {input} Viridiplantae --exclude  Malpighiales > {output}"
 
@@ -196,7 +196,7 @@ rule selectMedicagoSpeciesExcl:
         levels2species = "orthodb/level2species.tab",
         species = "orthodb/species.tab"
     output:
-        "results/Medicago_truncatula/species_excluded.fa"
+        "species/Medicago_truncatula/species_excluded.fa"
     shell:
         "./selectClade.py {input.raw} {input.levels} {input.levels2species} "
         " --species {input.species} Viridiplantae "
@@ -208,7 +208,7 @@ rule selectMedicagoOrderExcl:
         "orthodb/levels.tab",
         "orthodb/level2species.tab"
     output:
-        "results/Medicago_truncatula/order_excluded.fa"
+        "species/Medicago_truncatula/order_excluded.fa"
     shell:
         "./selectClade.py {input} Viridiplantae --exclude Fabales > {output}"
 
@@ -220,7 +220,7 @@ rule selectTomatoSpeciesExcl:
         levels2species = "orthodb/level2species.tab",
         species = "orthodb/species.tab"
     output:
-        "results/Solanum_lycopersicum/species_excluded.fa"
+        "species/Solanum_lycopersicum/species_excluded.fa"
     shell:
         "./selectClade.py {input.raw} {input.levels} {input.levels2species} "
         " --species {input.species} Viridiplantae "
@@ -232,7 +232,7 @@ rule selectTomatoOrderExcl:
         "orthodb/levels.tab",
         "orthodb/level2species.tab"
     output:
-        "results/Solanum_lycopersicum/order_excluded.fa"
+        "species/Solanum_lycopersicum/order_excluded.fa"
     shell:
         "./selectClade.py {input} Viridiplantae --exclude Solanales > {output}"
 
@@ -244,7 +244,7 @@ rule selectChickenSpeciesExcl:
         levels2species = "orthodb/level2species.tab",
         species = "orthodb/species.tab"
     output:
-        "results/Gallus_gallus/species_excluded.fa"
+        "species/Gallus_gallus/species_excluded.fa"
     shell:
         "./selectClade.py {input.raw} {input.levels} {input.levels2species} "
         " --species {input.species} Vertebrata "
@@ -257,7 +257,7 @@ rule selectChickenOrderExcl:
         levels2species = "orthodb/level2species.tab",
         species = "orthodb/species.tab"
     output:
-        "results/Gallus_gallus/order_excluded.fa"
+        "species/Gallus_gallus/order_excluded.fa"
     shell:
         "./selectClade.py {input.raw} {input.levels} {input.levels2species} "
         " --species {input.species} Vertebrata "
@@ -272,7 +272,7 @@ rule selectMouseSpeciesExcl:
         levels2species = "orthodb/level2species.tab",
         species = "orthodb/species.tab"
     output:
-        "results/Mus_musculus/species_excluded.fa"
+        "species/Mus_musculus/species_excluded.fa"
     shell:
         "./selectClade.py {input.raw} {input.levels} {input.levels2species} "
         " --species {input.species} Vertebrata "
@@ -284,7 +284,7 @@ rule selectMouseOrderExcl:
         "orthodb/levels.tab",
         "orthodb/level2species.tab"
     output:
-        "results/Mus_musculus/order_excluded.fa"
+        "species/Mus_musculus/order_excluded.fa"
     shell:
         "./selectClade.py {input} Vertebrata --exclude Rodentia > {output}"
 
@@ -296,7 +296,7 @@ rule selectCelegansSpeciesExcl:
         levels2species = "orthodb/level2species.tab",
         species = "orthodb/species.tab"
     output:
-        "results/Caenorhabditis_elegans/species_excluded.fa"
+        "species/Caenorhabditis_elegans/species_excluded.fa"
     shell:
         "./selectClade.py {input.raw} {input.levels} {input.levels2species} "
         " --species {input.species} Metazoa "
@@ -309,7 +309,7 @@ rule selectCelegansOrderExcl:
         levels2species = "orthodb/level2species.tab",
         species = "orthodb/species.tab"
     output:
-        "results/Caenorhabditis_elegans/order_excluded.fa"
+        "species/Caenorhabditis_elegans/order_excluded.fa"
     shell:
         "./selectClade.py {input.raw} {input.levels} {input.levels2species} "
         " --species {input.species} Metazoa "
@@ -324,7 +324,7 @@ rule selectArabiSpeciesExcl:
         levels2species = "orthodb/level2species.tab",
         species = "orthodb/species.tab"
     output:
-        "results/Arabidopsis_thaliana/species_excluded.fa"
+        "species/Arabidopsis_thaliana/species_excluded.fa"
     shell:
         "./selectClade.py {input.raw} {input.levels} {input.levels2species} "
         " --species {input.species} Viridiplantae "
@@ -336,7 +336,7 @@ rule selectArabiOrderExcl:
         "orthodb/levels.tab",
         "orthodb/level2species.tab"
     output:
-        "results/Arabidopsis_thaliana/order_excluded.fa"
+        "species/Arabidopsis_thaliana/order_excluded.fa"
     shell:
         "./selectClade.py {input} Viridiplantae --exclude Brassicales > {output}"
 
@@ -348,7 +348,7 @@ rule selectDrosophilaSpeciesExcl:
         levels2species = "orthodb/level2species.tab",
         species = "orthodb/species.tab"
     output:
-        "results/Drosophila_melanogaster/species_excluded.fa"
+        "species/Drosophila_melanogaster/species_excluded.fa"
     shell:
         "./selectClade.py {input.raw} {input.levels} {input.levels2species} "
         " --species {input.species} Arthropoda "
@@ -360,7 +360,7 @@ rule selectDrosophilaOrderExcl:
         "orthodb/levels.tab",
         "orthodb/level2species.tab"
     output:
-        "results/Drosophila_melanogaster/order_excluded.fa"
+        "species/Drosophila_melanogaster/order_excluded.fa"
     shell:
         "./selectClade.py {input} Arthropoda --exclude Diptera > {output}"
 
