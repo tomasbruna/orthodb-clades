@@ -16,11 +16,37 @@ rule all:
         "results/Mus_musculus/species_excluded.fa",
         "results/Mus_musculus/order_excluded.fa",
         "results/Gallus_gallus/species_excluded.fa",
-        "results/Gallus_gallus/order_excluded.fa"
+        "results/Gallus_gallus/order_excluded.fa",
+        "results/Solanum_lycopersicum/species_excluded.fa",
+        "results/Solanum_lycopersicum/order_excluded.fa"
+
 
 
 
 # Individual species
+
+rule selectTomatoSpeciesExcl:
+    input:
+        raw = "clades/Viridiplantae.fa",
+        levels = "orthodb/levels.tab",
+        levels2species = "orthodb/level2species.tab",
+        species = "orthodb/species.tab"
+    output:
+        "results/Solanum_lycopersicum/species_excluded.fa"
+    shell:
+        "./selectClade.py {input.raw} {input.levels} {input.levels2species} "
+        " --species {input.species} Viridiplantae "
+        " --excludeSpecies 'Solanum lycopersicum' > {output} "
+
+rule selectTomatoOrderExcl:
+    input:
+        "clades/Viridiplantae.fa",
+        "orthodb/levels.tab",
+        "orthodb/level2species.tab"
+    output:
+        "results/Solanum_lycopersicum/order_excluded.fa"
+    shell:
+        "./selectClade.py {input} Viridiplantae --exclude Solanales > {output}"
 
 
 rule selectChickenSpeciesExcl:
