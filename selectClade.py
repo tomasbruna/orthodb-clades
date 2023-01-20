@@ -26,12 +26,13 @@ def selectSpeciesIds(cladeId, level2species):
     return speciesIds
 
 
-def selectProteins(proteins, speciesIds):
+def selectProteins(proteins, speciesIds, exclude):
     with open(proteins) as f:
         selected = False
         for line in f:
             if line[0] == ">":
-                if line.split()[1] in speciesIds:
+                speciesId = line.split()[1]
+                if speciesId in speciesIds and speciesId not in exclude:
                     print(line, end="")
                     selected = True
                 else:
@@ -44,7 +45,13 @@ def main():
     args = parseCmd()
     cladeId = getCladeId(args.clade, args.levels)
     speciesIds = selectSpeciesIds(cladeId, args.level2species)
-    selectProteins(args.proteins, speciesIds)
+
+    exclude = set()
+    if args.exclude:
+        excludeId = getCladeId(args.exclude, args.levels)
+        exclude = selectSpeciesIds(excludeId, args.level2species)
+
+    selectProteins(args.proteins, speciesIds, exclude)
 
 
 def parseCmd():
@@ -63,6 +70,9 @@ def parseCmd():
 
     parser.add_argument('clade', type=str,
                         help='Clade to select proteins from')
+
+    parser.add_argument('--exclude', type=str,
+                        help='Clade name to exclude')
 
     return parser.parse_args()
 
