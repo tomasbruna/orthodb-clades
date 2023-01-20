@@ -26,12 +26,16 @@ def selectSpeciesIds(cladeId, level2species):
     return speciesIds
 
 
-def getSpeciesIdsFromNames(speciesNames, speciesFile):
-    speciesNames = set(speciesNames.split(","))
+def getSpeciesIdsFromNames(speciesNames, speciesFile, dryrun):
+    speciesNames = set([s.strip() for s in speciesNames.split(",")])
     exclude = set()
     for row in csv.reader(open(speciesFile), delimiter='\t'):
         if row[2] in speciesNames:
             exclude.add(row[1])
+            if dryrun:
+                print("\t".join(row))
+    if dryrun:
+        sys.exit(0)
     return exclude
 
 
@@ -63,7 +67,7 @@ def main():
 
     if args.excludeSpecies:
         exclude.update((getSpeciesIdsFromNames(args.excludeSpecies,
-                                               args.species)))
+                                               args.species, args.dryrun)))
 
     selectProteins(args.proteins, speciesIds, exclude)
 
@@ -94,6 +98,11 @@ def parseCmd():
 
     parser.add_argument('--species', metavar='species.tab', type=str,
                         help='Path to the species OrthoDB file')
+
+    parser.add_argument('--dryrun', default=False, action='store_true',
+                        help='Print species names selected for exclusion and\
+                        exit. Helpful for checking whether all species to \
+                        be excluded were found.')
 
     args = parser.parse_args()
 
