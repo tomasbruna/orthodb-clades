@@ -1,8 +1,8 @@
 orthoDBlinks = [
-    ("raw.fasta", "https://data.orthodb.org/download/odb11v0_all_fasta.tab.gz"),
-    ("species.tab", "https://data.orthodb.org/download/odb11v0_species.tab.gz"),
-    ("level2species.tab", "https://data.orthodb.org/download/odb11v0_level2species.tab.gz"),
-    ("levels.tab", "https://data.orthodb.org/download/odb11v0_levels.tab.gz")]
+    ("raw.fasta", "https://data.orthodb.org/v11/download/odb11v0_all_fasta.tab.gz"),
+    ("species.tab", "https://data.orthodb.org/v11/download/odb11v0_species.tab.gz"),
+    ("level2species.tab", "https://data.orthodb.org/v11/download/odb11v0_level2species.tab.gz"),
+    ("levels.tab", "https://data.orthodb.org/v11/download/odb11v0_levels.tab.gz")]
 
 
 rule all:
